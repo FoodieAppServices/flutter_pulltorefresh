@@ -191,7 +191,6 @@ class _ReorderableListContent extends StatefulWidget {
     this.enablePullUp: false,
     this.onRefresh,
     this.onLoading,
-    this.onOffsetChange,
   });
 
   final RefreshIndicator refreshHeader;
@@ -203,8 +202,6 @@ class _ReorderableListContent extends StatefulWidget {
   final bool enablePullDown;
 
   final Function onRefresh, onLoading;
-
-  final Function onOffsetChange;
 
   final RefreshController refreshController;
 
@@ -510,7 +507,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         ),
         child: _dragging == toWrap.key ? const SizedBox() : toWrapWithSemantics,
         childWhenDragging: const SizedBox(),
-        dragAnchor: DragAnchor.child,
         onDragStarted: onDragStarted,
         // When the drag ends inside a DragTarget widget, the drag
         // succeeds, and we reorder the widget into position appropriately.

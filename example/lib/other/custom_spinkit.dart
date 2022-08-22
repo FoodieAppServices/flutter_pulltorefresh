@@ -1,5 +1,5 @@
+import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_spinkit/src/utils.dart';
 
 class SpinKitFadingCircle extends StatefulWidget {
   SpinKitFadingCircle({
@@ -78,7 +78,7 @@ class _SpinKitFadingCircleState extends State<SpinKitFadingCircle>
         child: Align(
           alignment: Alignment.center,
           child: FadeTransition(
-            opacity: DelayTween(begin: 0.0, end: 1.0, delay: delay)
+            opacity: _DelayTween(begin: 0.0, end: 1.0, delay: delay)
                 .animate(widget.animationController),
             child: SizedBox.fromSize(
               size: Size.square(_size),
@@ -100,4 +100,22 @@ class _SpinKitFadingCircleState extends State<SpinKitFadingCircle>
             ),
           );
   }
+}
+
+class _DelayTween extends Tween<double> {
+  final double delay;
+
+  _DelayTween({
+    double begin,
+    double end,
+    this.delay,
+  }) : super(begin: begin, end: end);
+
+  @override
+  double lerp(double t) {
+    return super.lerp((math.sin((t - delay) * 2 * math.pi) + 1) / 2);
+  }
+
+  @override
+  double evaluate(Animation<double> animation) => lerp(animation.value);
 }
